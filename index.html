@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>วิทยาศาสตร์ ป.4 เรื่อง แสงและการมองเห็น</title>
+    <!-- Use Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;600;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="app" class="app-container">
+        <!-- 1. Intro Screen -->
+        <section id="screen-intro" class="screen active">
+            <div class="content-wrapper centered">
+                <div class="character character-girl">👩‍🔬</div>
+                <h1 class="title-main">วิชาวิทยาศาสตร์ ป.4<br>เรื่อง แสงและการมองเห็น</h1>
+                <input type="text" id="student-name" class="input-name"
+                    placeholder="กรอกชื่อของคุณนักเรียน (Enter your name)" autocomplete="off">
+                <button class="btn btn-primary btn-large pulse-animation" onclick="registerUser()">ลงทะเบียนเรียน <i
+                        class="fas fa-arrow-right"></i></button>
+                <div id="register-error" class="error-msg hidden mt-1">กรุณากรอกชื่อก่อนเริ่มเรียน</div>
+            </div>
+        </section>
+
+        <!-- 2. Lesson Intro -->
+        <section id="screen-lesson-intro" class="screen hidden">
+            <header>
+                <button class="btn-icon" onclick="navTo('screen-intro')"><i class="fas fa-arrow-left"></i></button>
+                <h2>ส่วนชี้แจงบทเรียน</h2>
+                <button class="btn-icon" onclick="navTo('screen-menu')"><i class="fas fa-home"></i></button>
+            </header>
+            <div class="content-wrapper split">
+                <div class="character character-boy">👨‍🔬</div>
+                <div class="board">
+                    <h3>วัตถุประสงค์</h3>
+                    <ul>
+                        <li><i class="fas fa-check-circle"></i> ความรู้เกี่ยวกับแสง</li>
+                        <li><i class="fas fa-check-circle"></i> ความรู้เกี่ยวกับการมองเห็น</li>
+                    </ul>
+                    <div class="controls-center mt-2">
+                        <button class="btn btn-primary" onclick="navTo('screen-menu')">เข้าสู่เมนูหลัก</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Main Menu -->
+        <section id="screen-menu" class="screen hidden">
+            <header>
+                <div class="spacer" style="width: 45px;"></div>
+                <h2>เมนูหลัก</h2>
+                <div class="spacer" style="width: 45px;"></div>
+            </header>
+            <div class="content-wrapper centered">
+                <div class="grid-menu">
+                    <!-- Removed duplicate "Start Lesson" per user request, routing directly via Objectives -->
+                    <button class="menu-item" onclick="navTo('screen-objectives')">
+                        <i class="fas fa-bullseye"></i>
+                        <span>Objectives<br>วัตถุประสงค์การเรียนรู้</span>
+                    </button>
+                    <button class="menu-item" onclick="navTo('screen-lessons')">
+                        <i class="fas fa-play-circle"></i>
+                        <span>Lessons<br>เลือกบทเรียน</span>
+                    </button>
+                    <button class="menu-item" onclick="navTo('screen-practice-menu')">
+                        <i class="fas fa-pencil-alt"></i>
+                        <span>Pre-test<br>แบบทดสอบก่อนเรียน</span>
+                    </button>
+                    <button class="menu-item" onclick="startTest()">
+                        <i class="fas fa-graduation-cap"></i>
+                        <span>Post-test<br>แบบทดสอบหลังเรียน</span>
+                    </button>
+                    <button class="menu-item" onclick="navTo('screen-manual')">
+                        <i class="fas fa-info-circle"></i>
+                        <span>Manual<br>คู่มือการใช้งาน</span>
+                    </button>
+                    <button class="menu-item" onclick="navTo('screen-authors')">
+                        <i class="fas fa-users"></i>
+                        <span>Authors<br>ผู้จัดทำ</span>
+                    </button>
+                </div>
+                <div class="controls-center mt-2">
+                    <button class="btn btn-secondary btn-large" onclick="navTo('screen-intro')">
+                        <i class="fas fa-sign-out-alt"></i> ออก (กลับหน้าใส่ชื่อ)
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Objectives Screen -->
+        <section id="screen-objectives" class="screen hidden">
+            <header>
+                <button class="btn-icon" onclick="navTo('screen-menu')"><i class="fas fa-arrow-left"></i></button>
+                <h2>Objectives วัตถุประสงค์</h2>
+                <button class="btn-icon" onclick="navTo('screen-menu')"><i class="fas fa-home"></i></button>
+            </header>
+            <div class="content-wrapper centered">
+                <div class="board large" style="max-width: 800px; text-align: left;">
+                    <h3><i class="fas fa-bullseye"></i> วัตถุประสงค์การเรียนรู้</h3>
+                    <ul>
+                        <li><i class="fas fa-check-circle"></i> อธิบายธรรมชาติและการเดินทางของแสงได้</li>
+                        <li><i class="fas fa-check-circle"></i> จำแนกประเภทตัวกลางของแสงได้ถูกต้อง</li>
+                        <li><i class="fas fa-check-circle"></i> อธิบายการเกิดเงาและวัตถุกั้นแสงได้</li>
+                        <li><i class="fas fa-check-circle"></i> อธิบายหลักการมองเห็นและการสะท้อนแสงได้</li>
+                        <li><i class="fas fa-check-circle"></i> ปฏิบัติตนในการดูแลรักษาสายตาได้อย่างถูกต้อง</li>
+                    </ul>
+                    <div class="controls-center mt-2">
+                        <button class="btn btn-primary btn-large" onclick="navTo('screen-lessons')">ไปเลือกบทเรียน <i class="fas fa-play-circle"></i></button>
+                        <button class="btn btn-secondary" style="margin-left:15px;" onclick="navTo('screen-menu')">กลับเมนูหลัก <i class="fas fa-home"></i></button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4.5 Lessons Selection Screen -->
+        <section id="screen-lessons" class="screen hidden">
+            <header>
+                <button class="btn-icon" onclick="navTo('screen-menu')"><i class="fas fa-arrow-left"></i></button>
+                <h2>Lessons เลือกบทเรียน</h2>
+                <button class="btn-icon" onclick="navTo('screen-menu')"><i class="fas fa-home"></i></button>
+            </header>
+            <div class="content-wrapper centered">
+                <div class="board large" style="width: 100%; max-width: 800px; text-align: left;">
+                    <h3 style="text-align: center; margin-bottom: 20px;">เลือกเนื้อหาที่ต้องการเรียน</h3>
+                    <div class="lesson-list">
+                        <button class="btn btn-secondary" style="width:100%; text-align:left; margin-bottom:15px; font-size:1.4rem;" onclick="openLesson(0)">
+                            <i class="fas fa-play-circle"></i> 1. วิทยาศาสตร์ ป.4 เรื่อง แสง (Light)
+                        </button>
+                        <button class="btn btn-secondary" style="width:100%; text-align:left; margin-bottom:15px; font-size:1.4rem;" onclick="openLesson(1)">
+                            <i class="fas fa-play-circle"></i> 2. ตัวกลางของแสง (Lipda Pola EP.55)
+                        </button>
+                        <button class="btn btn-secondary" style="width:100%; text-align:left; margin-bottom:15px; font-size:1.4rem;" onclick="openLesson(2)">
+                            <i class="fas fa-play-circle"></i> 3. แสงและการมองเห็น Ep.1
+                        </button>
+                        <button class="btn btn-secondary" style="width:100%; text-align:left; margin-bottom:15px; font-size:1.4rem;" onclick="openLesson(3)">
+                            <i class="fas fa-play-circle"></i> 4. ตัวกลางของแสง ป.4 (by NTK)
+                        </button>
+                        <button class="btn btn-secondary" style="width:100%; text-align:left; margin-bottom:15px; font-size:1.4rem;" onclick="openLesson(4)">
+                            <i class="fas fa-play-circle"></i> 5. แสงและตัวกลางของแสง (Wonder Science)
+                        </button>
+                    </div>
+                    <div class="controls-center mt-2">
+                        <button class="btn btn-primary btn-large" onclick="navTo('screen-menu')">กลับหน้าเมนูหลัก <i
+                                class="fas fa-home"></i></button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. Content Section (Single Video + Question) -->
+        <section id="screen-content" class="screen hidden">
+            <header>
+                <button class="btn-icon" onclick="navTo('screen-objectives')"><i class="fas fa-arrow-left"></i></button>
+                <h2 id="lesson-topic-title" style="flex:1; text-align: center;">บทเรียนวิทยาศาสตร์</h2>
+                <button class="btn-icon" onclick="navTo('screen-menu')"><i class="fas fa-home"></i></button>
+            </header>
+            <div class="content-wrapper">
+
+                <!-- iframes วางตรงๆ แบบดิบๆ ใน HTML JS แค่ toggle display เท่านั้น -->
+                <div style="display:flex; justify-content:center; margin-bottom:20px;">
+                    <div id="video-0" style="display:none;"><iframe width="560" height="315" src="https://www.youtube.com/embed/b4EFsR_7vT4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
+                    <div id="video-1" style="display:none;"><iframe width="560" height="315" src="https://www.youtube.com/embed/TJUz2utLmSk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
+                    <div id="video-2" style="display:none;"><iframe width="560" height="315" src="https://www.youtube.com/embed/SVzlTpjcLP8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
+                    <div id="video-3" style="display:none;"><iframe width="560" height="315" src="https://www.youtube.com/embed/3h9csfc5EU4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
+                    <div id="video-4" style="display:none;"><iframe width="560" height="315" src="https://www.youtube.com/embed/07TYTwLiN3w" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
+                </div>
+
+                <!-- Specific question below it -->
+                <div class="quiz-container board" style="max-width: 1000px; margin: 0 auto; width: 100%;">
+                    <h3 id="lesson-question-text" style="text-align: center; font-size: 1.6rem; margin-bottom: 20px;">
+                        Loading Question...</h3>
+                    <div class="options-image-grid" id="lesson-options" style="gap: 20px;">
+                        <!-- Options injected here by JS -->
+                    </div>
+                    <div id="lesson-feedback" class="feedback-msg hidden mt-2"></div>
+                    <div class="controls-center mt-2">
+                        <button class="btn btn-secondary hidden" id="btn-next-lesson-q"
+                            onclick="nextLessonQuestion()">คำถามต่อไป <i class="fas fa-arrow-right"></i></button>
+                        <button class="btn btn-primary hidden" id="btn-back-lesson-menu"
+                            onclick="navTo('screen-lessons')">สำเร็จ! กลับไปเลือกบทเรียน <i
+                                class="fas fa-list"></i></button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5.5 Practice Topic Selection Screen -->
+        <section id="screen-practice-menu" class="screen hidden">
+            <header>
+                <button class="btn-icon" onclick="navTo('screen-menu')"><i class="fas fa-arrow-left"></i></button>
+                <h2>แบบทดสอบก่อนเรียน (Pre-test)</h2>
+                <button class="btn-icon" onclick="navTo('screen-menu')"><i class="fas fa-home"></i></button>
+            </header>
+            <div class="content-wrapper centered">
+                <div class="board large" style="width: 100%; max-width: 800px; text-align: left;">
+                    <h3 style="text-align: center; margin-bottom: 20px;">เลือกหัวข้อที่ต้องการทดสอบก่อนเรียน</h3>
+                    <div class="lesson-list">
+                        <button class="btn btn-secondary" style="width:100%; text-align:left; margin-bottom:15px; font-size:1.3rem;" onclick="startTopicPractice(0)">
+                            <i class="fas fa-play-circle"></i> หัวข้อที่ 1: ธรรมชาติการเดินทางของแสง (5 ข้อ)
+                        </button>
+                        <button class="btn btn-secondary" style="width:100%; text-align:left; margin-bottom:15px; font-size:1.3rem;" onclick="startTopicPractice(1)">
+                            <i class="fas fa-play-circle"></i> หัวข้อที่ 2: ตัวกลางของแสง (5 ข้อ)
+                        </button>
+                        <button class="btn btn-secondary" style="width:100%; text-align:left; margin-bottom:15px; font-size:1.3rem;" onclick="startTopicPractice(2)">
+                            <i class="fas fa-play-circle"></i> หัวข้อที่ 3: วัตถุกั้นแสง (การเกิดเงา) (5 ข้อ)
+                        </button>
+                        <button class="btn btn-secondary" style="width:100%; text-align:left; margin-bottom:15px; font-size:1.3rem;" onclick="startTopicPractice(3)">
+                            <i class="fas fa-play-circle"></i> หัวข้อที่ 4: หลักการมองเห็นและการสะท้อน (5 ข้อ)
+                        </button>
+                        <button class="btn btn-secondary" style="width:100%; text-align:left; margin-bottom:15px; font-size:1.3rem;" onclick="startTopicPractice(4)">
+                            <i class="fas fa-play-circle"></i> หัวข้อที่ 5: การป้องกันอันตรายจากการมองเห็น (5 ข้อ)
+                        </button>
+                    </div>
+                    <div class="controls-center mt-2">
+                        <button class="btn btn-primary btn-large" onclick="navTo('screen-menu')">กลับหน้าเมนูหลัก <i class="fas fa-home"></i></button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="screen-practice" class="screen hidden">
+            <header>
+                <button class="btn-icon" onclick="navTo('screen-practice-menu')"><i class="fas fa-arrow-left"></i></button>
+                <div style="flex:1; text-align:center;">
+                    <div id="practice-topic-title" style="font-size:0.9rem; color: var(--accent); font-weight:600;"></div>
+                    <h2 style="margin:0; font-size:1.4rem;">ข้อที่ <span id="practice-current-idx">1</span>/<span id="practice-total-idx">5</span></h2>
+                </div>
+                <button class="btn-icon" onclick="navTo('screen-menu')"><i class="fas fa-home"></i></button>
+            </header>
+            <div class="content-wrapper">
+                <div class="quiz-container board" style="max-width: 850px; margin: 0 auto;">
+                    <h3 id="practice-question-text" style="text-align: center;">Loading...</h3>
+                    <div class="options-image-grid" id="practice-options" style="gap: 20px;">
+                        <!-- Options injected here by JS -->
+                    </div>
+                    <div id="practice-feedback" class="feedback-msg hidden mt-2"></div>
+                    <div class="controls-center mt-2">
+                        <button class="btn btn-primary hidden" id="btn-next-practice" onclick="nextPractice()">ข้อต่อไป
+                            <i class="fas fa-arrow-right"></i></button>
+                        <button class="btn btn-primary btn-large hidden" id="btn-next-summary"
+                            onclick="navTo('screen-practice-menu')">ทดสอบเสร็จสิ้น! เลือกหัวข้ออื่น <i
+                                class="fas fa-list"></i></button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. Lesson Summary -->
+        <section id="screen-summary" class="screen hidden">
+            <header>
+                <div class="spacer" style="width: 45px;"></div>
+                <h2>ยินดีด้วย! (Summary)</h2>
+                <button class="btn-icon" onclick="navTo('screen-menu')"><i class="fas fa-home"></i></button>
+            </header>
+            <div class="content-wrapper centered">
+                <div class="success-panel glass-panel" style="max-width: 700px;">
+                    <div class="character-small">👨‍🔬👩‍🔬</div>
+                    <h2 class="text-success" id="summary-title">🎉 สำเร็จ!</h2>
+                    <p style="font-size: 1.6rem;">เก่งมาก <strong id="summary-name"
+                            class="highlight-text">นักเรียน</strong> !</p>
+                    <p style="font-size: 1.4rem;">คุณมีความพร้อมสำหรับการทดสอบจริงแล้ว</p>
+                    <button class="btn btn-primary btn-large mt-2 pulse-animation"
+                        onclick="startTest()">ทำแบบทดสอบหลังเรียน <i class="fas fa-pencil-alt"></i></button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 8. Post-test -->
+        <section id="screen-test" class="screen hidden">
+            <header>
+                <button class="btn-icon" onclick="navTo('screen-menu')"><i class="fas fa-arrow-left"></i></button>
+                <h2>แบบทดสอบหลังเรียนข้อที่ <span id="test-current-idx">1</span>/<span id="test-total-idx">2</span></h2>
+                <button class="btn-icon" onclick="navTo('screen-menu')"><i class="fas fa-home"></i></button>
+            </header>
+            <div class="content-wrapper">
+                <div class="quiz-container board" style="max-width: 700px; margin: 0 auto;">
+                    <h3 id="test-question-text">Loading...</h3>
+                    <div class="options-list" id="test-options">
+                        <!-- Options injected here by JS -->
+                    </div>
+                    <div id="test-feedback" class="feedback-msg hidden mt-2"></div>
+                    <div class="controls-center mt-2">
+                        <button class="btn btn-primary hidden" id="btn-next-test" onclick="nextTest()">ข้อต่อไป <i
+                                class="fas fa-arrow-right"></i></button>
+                        <button class="btn btn-success hidden" id="btn-finish-test" onclick="finishTest()">ดูคะแนนทดสอบ
+                            <i class="fas fa-trophy"></i></button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 9. Final Score Screen -->
+        <section id="screen-score" class="screen hidden">
+            <header>
+                <div class="spacer" style="width: 45px;"></div>
+                <h2>ผลคะแนนแบบทดสอบ</h2>
+                <button class="btn-icon" onclick="navTo('screen-menu')"><i class="fas fa-home"></i></button>
+            </header>
+            <div class="content-wrapper centered">
+                <div class="success-panel glass-panel" style="max-width: 600px;">
+                    <h2 class="text-success" style="font-size: 4rem;"><i class="fas fa-trophy"></i></h2>
+                    <h3 style="font-size: 2rem; color: var(--primary-dark); margin-bottom: 20px;">คะแนนทดสอบของ <span
+                            id="score-name">คุณ</span></h3>
+                    <p style="font-size: 3rem; font-weight: 800; color: var(--secondary);"><span
+                            id="score-result">0</span> / <span id="score-total">0</span></p>
+                    <button class="btn btn-primary btn-large mt-2 pulse-animation"
+                        onclick="navTo('screen-menu')">กลับหน้าเมนูหลัก <i class="fas fa-home"></i></button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 10. Manual Screen -->
+        <section id="screen-manual" class="screen hidden">
+            <header>
+                <button class="btn-icon" onclick="navTo('screen-menu')"><i class="fas fa-arrow-left"></i></button>
+                <h2>คู่มือการใช้งาน (Manual)</h2>
+                <div class="spacer" style="width: 45px;"></div>
+            </header>
+            <div class="content-wrapper centered">
+                <div class="board large" style="text-align: left;">
+                    <h3><i class="fas fa-info-circle"></i> วิธีการใช้งานสื่อช่วยสอน</h3>
+                    <ul>
+                        <li><i class="fas fa-bullseye"></i> เมนู <strong>Objectives / บทเรียน</strong>:
+                            เลือกเนื้อหาวิดีโอที่ต้องการศึกษาทีละหัวข้อ พร้อมทำคำถามท้ายคลิป</li>
+                        <li><i class="fas fa-pencil-alt"></i> เมนู <strong>Pre-test</strong>:
+                            สำหรับทดสอบความรู้พื้นฐานก่อนเรียน</li>
+                        <li><i class="fas fa-graduation-cap"></i> เมนู <strong>Post-test</strong>:
+                            ทดสอบเพื่อประเมินผลการเรียนรู้</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 11. Authors Screen -->
+        <section id="screen-authors" class="screen hidden">
+            <header>
+                <button class="btn-icon" onclick="navTo('screen-menu')"><i class="fas fa-arrow-left"></i></button>
+                <h2>ผู้จัดทำ (Authors)</h2>
+                <div class="spacer" style="width: 45px;"></div>
+            </header>
+            <div class="content-wrapper centered">
+                <div class="glass-panel" style="max-width: 600px; text-align: center;">
+                    <i class="fas fa-user-graduate"
+                        style="font-size: 6rem; color: var(--primary); margin-bottom: 20px;"></i>
+                    <h3>คณะผู้จัดทำสื่อการสอนวิทยาศาสตร์</h3>
+                    <p style="margin-top: 20px;"><strong>รายวิชา:</strong> วิทยาศาสตร์ ป.4<br><strong>เรื่อง:</strong>
+                        แสงและการมองเห็น</p>
+                    <p>สื่อการเรียนการสอน (CAI) ปรับปรุงใหม่เพื่อให้ผู้เรียนใช้งานได้อย่างมีประสิทธิภาพสูงสุด</p>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
